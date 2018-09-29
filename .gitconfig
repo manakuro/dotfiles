@@ -1,0 +1,22 @@
+[core]
+	excludesfile = /Users/kuroda.manato/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[alias]
+    pullf = !git fetch --all && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+    su = !git branch --set-upstream-to origin/$(git rev-parse --abbrev-ref HEAD) $(git rev-parse --abbrev-ref HEAD)
+    pushf = push --force
+    ck = checkout
+    br = branch
+    showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
+    openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
+    pr = !hub pull-request -F ./.github/PULL_REQUEST_TEMPLATE.md -o
+    pullm = !git checkout master && git pull origin master && git checkout - && git rebase master
+    cleanup = !git branch --merged | grep -v '*' | xargs git branch -d
+[user]
+	name = 黒田学人
+	email = a7108100@gmail.com
