@@ -167,28 +167,19 @@ esac
 
 # lsのディレクトリ色をマゼンタに
 export LSCOLORS=gxfxcxdxbxegedabagacad
+
 export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/Applications/MAMP/Library/bin
 
 #########################################
-# [[ -d ~/.rbenv  ]] && \
+#[[ -d ~/.rbenv  ]] && \
 #  export PATH=${HOME}/.rbenv/bin:${PATH} && \
 #    eval "$(rbenv init -)"
-#
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export PATH="/usr/local/sbin:$PATH"
-export PATH=$PATH:/sbin
-export PATH=$PATH:/usr/sbin
-
-
-#########################################
-# Node.js
-#########################################
-export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
 
 
 #########################################
@@ -196,8 +187,38 @@ eval "$(anyenv init -)"
 #########################################
 alias be='bundle exec'
 
+#########################################t
+# Node.js - ndenv -
+#########################################
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+for D in `ls $HOME/.anyenv/envs`
+do
+  export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+done
 
 #########################################
-# Git hub
+# Yarn.js
 #########################################
+export PATH="$PATH:`yarn global bin`"
+
+#########################################
+# Docker
+##########################################
+alias CONTAINER_ID='docker ps -l -q' #現在動作中
+alias docker-ip="sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias fig="docker-compose"
+
+#########################################
+# Github
+##########################################
 eval "$(hub alias -s)"
+
+
+#########################################
+# Golang
+##########################################
+export GOPATH=$HOME/.go
+export GOENV_ROOT=$HOME/.goenv
+export PATH=$GOENV_ROOT/bin:$PATH
+eval "$(goenv init -)"
