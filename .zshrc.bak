@@ -167,28 +167,19 @@ esac
 
 # lsのディレクトリ色をマゼンタに
 export LSCOLORS=gxfxcxdxbxegedabagacad
+
 export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/Applications/MAMP/Library/bin
 
 #########################################
- [[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-    eval "$(rbenv init -)"
+#[[ -d ~/.rbenv  ]] && \
+#  export PATH=${HOME}/.rbenv/bin:${PATH} && \
+#    eval "$(rbenv init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 export PATH="/usr/local/sbin:$PATH"
-export PATH=$PATH:/sbin
-export PATH=$PATH:/usr/sbin
-
-
-#########################################
-# Node.js
-#########################################
-#export PATH="$HOME/.anyenv/bin:$PATH"
-#eval "$(anyenv init -)"
 
 
 #########################################
@@ -196,38 +187,38 @@ export PATH=$PATH:/usr/sbin
 #########################################
 alias be='bundle exec'
 
+#########################################t
+# Node.js - ndenv -
+#########################################
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+for D in `ls $HOME/.anyenv/envs`
+do
+  export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+done
 
 #########################################
-# Git hub
+# Yarn.js
 #########################################
+export PATH="$PATH:`yarn global bin`"
+
+#########################################
+# Docker
+##########################################
+alias CONTAINER_ID='docker ps -l -q' #現在動作中
+alias docker-ip="sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias fig="docker-compose"
+
+#########################################
+# Github
+##########################################
 eval "$(hub alias -s)"
-eval "$(nodenv init -)"
 
 
 #########################################
-# Go
-#########################################
-export GOPATH=$HOME/.go:$HOME/workspace/golang
+# Golang
+##########################################
+export GOPATH=$HOME/.go
 export GOENV_ROOT=$HOME/.goenv
 export PATH=$GOENV_ROOT/bin:$PATH
 eval "$(goenv init -)"
-
-########################################
-# Docker
-########################################
-alias fig='docker-compose'
-
-
-########################################
-# Android Studio
-########################################
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-
-########################################
-# Fast lane
-########################################
-export PATH="$HOME/.fastlane/bin:$PATH"
