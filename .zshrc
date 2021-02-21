@@ -207,10 +207,15 @@ eval "$(nodenv init -)"
 #########################################
 # Go
 #########################################
-export GOPATH=$HOME/.go:$HOME/workspace/golang
+export GO111MODULE=on
+export GOENV_DISABLE_GOPATH=1
 export GOENV_ROOT=$HOME/.goenv
 export PATH=$GOENV_ROOT/bin:$PATH
 eval "$(goenv init -)"
+
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
 
 ########################################
 # Docker
@@ -226,8 +231,45 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+########################################
+# Python
+#########################################
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+########################################
+# GPG
+#########################################
+export GPG_TTY=$(tty)
+
+########################################
+# awsp
+#########################################
+alias awsp="source _awsp"
 
 ########################################
 # Fast lane
 ########################################
 export PATH="$HOME/.fastlane/bin:$PATH"
+
+########################################
+# mint
+#########################################
+if which mint >/dev/null; then
+  export MINT_PATH="${HOME}/.mint/lib"
+  export MINT_LINK_PATH="${HOME}/.mint/bin"
+fi
+
+########################################
+# serverless
+#########################################
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/kurodamanato/.nodenv/versions/12.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
